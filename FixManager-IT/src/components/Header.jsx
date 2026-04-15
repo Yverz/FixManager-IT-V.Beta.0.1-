@@ -1,15 +1,21 @@
 import logo from "../assets/logo.png";
 
-<img src={logo} alt="Logo" />
-
-
 function Header() {
-  const usuario = "Yiver Gaviria";
-
   return (
     <header className="header">
+    
+      <div className="brand-container">
+        <img src={logo} alt="Logo FixManager IT" className="logo" />
+
+        <h2 className="brand">
+          <span className="brand-main">FixManager-</span>
+          <span className="brand-it"> IT</span>
+        </h2>
+      </div>
+
       <input type="text" placeholder="Buscar..." />
-      <span>Hola, {usuario}</span>
+    
+      <span>Hola, Yiver Gaviria</span>
     </header>
   );
 }
