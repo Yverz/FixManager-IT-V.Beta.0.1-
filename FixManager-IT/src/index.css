@@ -380,3 +380,22 @@ body::before {
 .footer-status.offline {
   color: #ff5252;
 }
+-----------------------------------
+
+.menu-item {
+  display: block;
+  padding: 10px 14px;
+  color: #cfd8e3;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: background 0.2s;
+}
+
+.menu-item:hover {
+  background: rgba(0,180,255,0.15);
+}
+
+.menu-item.active {
+  background: rgba(0,180,255,0.25);
+  color: #38bdf8;
+}

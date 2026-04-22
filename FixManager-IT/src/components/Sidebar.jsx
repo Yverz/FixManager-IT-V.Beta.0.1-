@@ -1,18 +1,54 @@
+import { NavLink } from "react-router-dom";
+
 function Sidebar() {
   return (
     <aside className="sidebar">
-    <h1 className="sidebar-brand">
-      <span className="sidebar-brand-main">FixManager</span>
-      <span className="sidebar-brand-it"> IT®</span>
-  </h1>
+      <h1 className="sidebar-brand">
+        <span className="sidebar-brand-main">FixManager</span>
+        <span className="sidebar-brand-it"> IT®</span>
+      </h1>
 
       <h2>Admin</h2>
-      <nav>
-        <a href="/dashboard">Panel General</a>
-        <a href="/dashboard">Pedidos</a>
-        <a href="/dashboard">PQRS</a>
-        <a href="/dashboard">Configuración</a>
+
+      <nav className="sidebar-nav">
+        <NavLink
+          to="/"
+          end
+          className={({ isActive }) =>
+            isActive ? "nav-link active" : "nav-link"
+          }
+        >
+          Panel General
+        </NavLink>
+
+        <NavLink
+          to="/pedidos"
+          className={({ isActive }) =>
+            isActive ? "nav-link active" : "nav-link"
+          }
+        >
+          Pedidos
+        </NavLink>
+
+        <NavLink
+          to="/pqrs"
+          className={({ isActive }) =>
+            isActive ? "nav-link active" : "nav-link"
+          }
+        >
+          PQRS
+        </NavLink>
+
+        <NavLink
+          to="/configuracion"
+          className={({ isActive }) =>
+            isActive ? "nav-link active" : "nav-link"
+          }
+        >
+          Configuración
+        </NavLink>
       </nav>
+
       <button className="MauseHover">Cerrar sesión</button>
     </aside>
   );
