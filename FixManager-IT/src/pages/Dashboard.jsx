@@ -7,7 +7,7 @@ function Dashboard() {
       <div className="cards">
         <div className="card">
           <p>Ventas del día</p>
-          <h2>$1190</h2>
+          <h2>$6699</h2>
         </div>
 
         <div className="card">
@@ -21,7 +21,9 @@ function Dashboard() {
         </div>
       </div>
 
-      <div className="table-section">
+      
+    <div className="table-section">
+
         <h3>Órdenes recientes</h3>
 
         <table className="table">
@@ -37,20 +39,20 @@ function Dashboard() {
             <tr>
               <td>001</td>
               <td>Cliente A</td>
-              <td>Reparación Hardware(Mantenimiento General)</td>
-              <td>En proceso</td>
+              <td>Reparación Hardware (Mantenimiento General)</td>
+              <td className="status process">En proceso</td>
             </tr>
             <tr>
               <td>002</td>
               <td>Cliente B</td>
-              <td>Reparación Software(Formateo/Instalación)</td>
-              <td>Finalizado</td>
+              <td>Reparación Software (Formateo / Instalación)</td>
+              <td className="status done">Finalizado</td>
             </tr>
             <tr>
               <td>003</td>
               <td>Cliente C</td>
               <td>PQRS</td>
-              <td>Pendiente</td>
+              <td className="status pending">Pendiente</td>
             </tr>
           </tbody>
         </table>
@@ -58,5 +60,6 @@ function Dashboard() {
     </section>
   );
 }
+
 
 export default Dashboard;

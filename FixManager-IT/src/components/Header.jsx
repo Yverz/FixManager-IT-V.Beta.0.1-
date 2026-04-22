@@ -11,7 +11,7 @@ function Header() {
         <img src={logo} alt="Logo FixManager IT" className="logo" />
 
         <h2 className="brand">
-          <span className="brand-main"></span>
+          <span className="brand-main">❄</span>
           <span className="brand-it">ServiceDesk</span>
         </h2>
       </div>
@@ -25,7 +25,9 @@ function Header() {
 
       <input type="text" placeholder="Buscar..." />
       
-      <span>Hola, Yiver Gaviria</span>
+      <span>Hola, Yiver Gaviria!</span>
+      <button className="MauseHover">φ</button>
+      
     </header>
   );
 }
