@@ -1,8 +1,8 @@
 import { NavLink } from "react-router-dom";
 
-function Sidebar() {
+function Sidebar({ menuOpen }) {
   return (
-    <aside className="sidebar">
+    <aside className={`sidebar ${menuOpen ? "open" : ""}`}>
       <h1 className="sidebar-brand">
         <span className="sidebar-brand-main">FixManager</span>
         <span className="sidebar-brand-it"> IT™</span>
