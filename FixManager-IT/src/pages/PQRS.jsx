@@ -4,7 +4,7 @@ function PQRS() {
   return (
     <section className="pQRS">
       <header className="pQRS-header">
-        <h1>PQRS</h1>
+        <h1 className="h1-pqrs">PQRS</h1>
         <p className="pqrs-descripcion">
   Gestión de Peticiones, Quejas, Reclamos y Sugerencias relacionadas
   con servicios IT, equipos y soporte técnico.

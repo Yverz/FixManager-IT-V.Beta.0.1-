@@ -1,0 +1,35 @@
+
+.sidebar-brand {
+  font-size: 1.6rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin-bottom: 30px;
+  display: flex;
+  align-items: center;
+}
+
+
+.sidebar-brand-main {
+  color: #e5e7eb;
+}
+
+
+.sidebar-brand-it {
+  color: #06deff;             
+  font-weight: 700;
+  margin-left: 4px;
+  text-shadow: 0 0 6px rgba(0, 218, 252, 0.6);
+}
+
+
+.brand-main {
+  color: #e5e7eb;
+}
+
+.brand-it {
+  color: #06deff;
+  font-weight: 700;
+  text-shadow: 0 0 6px rgba(0, 218, 252, 0.6);
+}
+
+

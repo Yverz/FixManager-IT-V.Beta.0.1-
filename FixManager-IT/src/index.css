@@ -100,7 +100,8 @@ body {
 
 
 .logo {
-  height: 48px;
+  height: 88px;
+  width: 148px;
 }
 
 .dashboard {
@@ -609,8 +610,7 @@ body::before {
 }
 
 /* ===============================
-   MOBILE – SIDEBAR OCULTO
-   =============================== */
+   MOBILE – SIDEBAR OCULTO */
 
 @media (max-width: 768px) {
   .sidebar {
@@ -665,5 +665,40 @@ body::before {
 
   .sidebar.open {
     left: 0;
+  }
+}
+
+/* =========================
+   HEADER - ORDEN MOBILE*/
+@media (max-width: 768px) {
+  .header {
+    flex-wrap: wrap;
+  }
+
+  
+  .brand-container {
+    order: 1;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  
+  .mobile-menu-btn {
+    order: 2;
+  }
+
+  .system-status {
+    order: 3;
+    width: 100%;
+  }
+
+  .header input {
+    order: 4;
+    width: 100%;
+  }
+
+  .user-menu {
+    order: 5;
   }
 }

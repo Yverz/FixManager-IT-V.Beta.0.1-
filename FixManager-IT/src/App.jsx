@@ -15,11 +15,20 @@ function App() {
 
   return (
     <>
-      <Header onToggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
+      
+      <Header
+        onToggleSidebar={() => setSidebarOpen((prev) => !prev)}
+        closeSidebar={() => setSidebarOpen(false)}
+      />
 
       <div className="layout">
-        <Sidebar menuOpen={sidebarOpen} />
+        
+        <Sidebar
+          menuOpen={sidebarOpen}
+          closeSidebar={() => setSidebarOpen(false)}
+        />
 
+        
         <main>
           <Routes>
             <Route path="/" element={<Dashboard />} />
