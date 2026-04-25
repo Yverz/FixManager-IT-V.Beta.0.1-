@@ -236,7 +236,7 @@ body::before {
   opacity: 0.85;
 }
 
----------
+
 .system-status.operativo {
   color: #4ade80;
 }
@@ -258,7 +258,6 @@ body::before {
   box-shadow: 0 0 6px currentColor;
 }
 
---------------
 
 .brand-main {
   color: #e5e7eb;
@@ -380,7 +379,7 @@ body::before {
 .footer-status.offline {
   color: #ff5252;
 }
------------------------------------
+
 
 .menu-item {
   display: block;

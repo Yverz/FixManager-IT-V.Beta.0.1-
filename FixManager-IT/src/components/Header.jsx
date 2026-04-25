@@ -7,7 +7,7 @@ function Header({ onToggleSidebar, closeSidebar }) {
   const userMenuRef = useRef(null);
   const hamburgerRef = useRef(null);
 
-  const systemStatus = "pruebas";
+  const systemStatus = "mantenimiento"; // Cambia esto para probar diferentes estados
 
   
   useEffect(() => {

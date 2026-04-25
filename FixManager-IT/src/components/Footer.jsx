@@ -10,7 +10,7 @@ function Footer() {
       <div className="footer-center">
         <span>Versión 1.0.0</span>
         <span className="footer-separator">·</span>
-        <span className="footer-status online">Sistema operativo</span>
+        <span className="footer-status mantenimiento">Sistema en mantenimiento</span>
       </div>
 
       <div className="footer-right">
