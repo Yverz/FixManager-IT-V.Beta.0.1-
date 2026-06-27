@@ -1,0 +1,143 @@
+:root {
+  --bg-primary: #f8fafc;
+  --panel-bg: #ffffff;
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+  --accent-color: #0284c7;
+  --border-color: #e2e8f0;
+}
+
+body {
+  background-color: var(--bg-primary);
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  color: var(--text-main);
+}
+
+.fixmanager-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.productos-header {
+  margin-bottom: 30px;
+}
+
+.productos-header h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin: 0;
+  color: var(--text-main);
+}
+
+.productos-header p {
+  color: var(--text-muted);
+  margin-top: 5px;
+}
+
+.productos-grid {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 30px;
+}
+
+@media (max-width: 768px) {
+  .productos-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.formulario-card, .lista-card {
+  background: var(--panel-bg);
+  padding: 25px;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+.input-group {
+  margin-bottom: 15px;
+}
+
+.input-group label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  margin-bottom: 6px;
+  color: var(--text-muted);
+}
+
+.input-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  font-family: 'Inter', sans-serif;
+  box-sizing: border-box;
+}
+
+.btn-guardar {
+  width: 100%;
+  padding: 12px;
+  background-color: var(--accent-color);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-guardar:hover {
+  background-color: #0369a1;
+}
+
+.loader, .sin-datos {
+  text-align: center;
+  color: var(--text-muted);
+  padding: 40px 0;
+}
+
+.tabla-contenedor {
+  overflow-x: auto;
+}
+
+.tabla-productos {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.tabla-productos th, .tabla-productos td {
+  padding: 12px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.tabla-productos th {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  font-weight: 600;
+}
+
+.txt-id {
+  font-family: monospace;
+  font-size: 0.8rem;
+  color: #888;
+}
+
+.txt-nombre {
+  font-weight: 500;
+}
+
+.txt-precio {
+  color: var(--accent-color);
+  font-weight: 600;
+}

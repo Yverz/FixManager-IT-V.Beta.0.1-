@@ -4,7 +4,6 @@ import { useRef, useEffect } from "react";
 function Sidebar({ menuOpen, closeSidebar }) {
   const sidebarRef = useRef(null);
 
-  
   useEffect(() => {
     function handleClickOutside(event) {
       if (
@@ -44,6 +43,13 @@ function Sidebar({ menuOpen, closeSidebar }) {
           isActive ? "nav-link active" : "nav-link"
         }>
           Pedidos
+        </NavLink>
+
+        {/* 📦 NUEVA PESTAÑA: Inventario de Productos conectado a MongoDB */}
+        <NavLink to="/productos" className={({ isActive }) =>
+          isActive ? "nav-link active" : "nav-link"
+        }>
+          Productos
         </NavLink>
 
         <NavLink to="/pqrs" className={({ isActive }) =>
