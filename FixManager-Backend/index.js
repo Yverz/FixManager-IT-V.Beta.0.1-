@@ -14,16 +14,18 @@ app.use(express.json());
 // ========================================== 
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('🔌 ¡Conectado exitosamente a MongoDB Atlas!'))
-  .catch(err => console.error('❌ Error crítico al conectar a MongoDB:', err));
+  .catch(err => {
+    console.log("❌ ¡HUBO UN ERROR REAL DE CONEXIÓN! Aquí está:");
+    console.error(err);
+  });
 
 // ========================================== 
 // 📦 DEFINICIÓN DEL MODELO (Esquema de la Colección)
 // ========================================== 
-// Mongoose mapeará esto automáticamente a una colección llamada "productos"
 const ProductoSchema = new mongoose.Schema({
   nombre: { type: String, required: true },
   precio: { type: Number, required: true }
-}, { versionKey: false }); // Elimina el campo innecesario __v de Mongoose
+}, { versionKey: false }); 
 
 const Producto = mongoose.model('Producto', ProductoSchema);
 
@@ -32,16 +34,12 @@ const Producto = mongoose.model('Producto', ProductoSchema);
 // ========================================== 
 app.get('/api/productos', async (req, res) => { 
   try {
-    // Buscamos todos los productos en la base de datos real
     const productosDeMongo = await Producto.find();
-
-    // Mantenemos tu retraso de 800ms para que se aprecie el "Cargando..." en tu React
     setTimeout(() => { 
       res.json(productosDeMongo); 
     }, 800); 
-
   } catch (error) {
-    res.status(500).json({ mensaje: "Error al obtener los datos de MongoDB", error });
+    res.status(500).json({ mensaje: "Error al obtener los datos de MongoDB", error: error.message });
   }
 }); 
 
@@ -50,16 +48,14 @@ app.get('/api/productos', async (req, res) => {
 // ========================================== 
 app.post('/api/productos', async (req, res) => { 
   try {
+    // ESTO TE AYUDARÁ A DEPURAR: Verás en la consola del servidor qué envía el frontend
+    console.log("Datos recibidos en el backend:", req.body);
+
     const { nombre, precio } = req.body; 
 
-    // Creamos la instancia del producto. 
-    // Ya NO necesitas "idSimulado" porque MongoDB genera el _id (ObjectId) por defecto.
     const nuevoProducto = new Producto({ nombre, precio }); 
-
-    // Se almacena físicamente en la nube de Atlas
     const productoGuardado = await nuevoProducto.save(); 
 
-    // Respondemos con éxito tras tus 500ms simulados
     setTimeout(() => { 
       res.status(201).json({ 
         mensaje: "Documento guardado con éxito", 
@@ -68,7 +64,9 @@ app.post('/api/productos', async (req, res) => {
     }, 500); 
 
   } catch (error) {
-    res.status(400).json({ mensaje: "Error al guardar en MongoDB", error });
+    // Ahora enviamos error.message para que el frontend no muestre {}
+    console.error("Error al intentar guardar:", error.message);
+    res.status(400).json({ mensaje: "Error al guardar en MongoDB", error: error.message });
   }
 }); 
 
@@ -81,10 +79,3 @@ app.listen(PORT, () => {
   console.log(`📡 Escuchando en: http://localhost:${PORT}/api/productos`); 
   console.log(`(Presiona CTRL+C para detener el servidor)`); 
 });
-
-mongoose.connect(process.env.MONGO_URI)
-  .then(() => console.log('🔌 ¡Conectado exitosamente a MongoDB Atlas!'))
-  .catch(err => {
-    console.log("❌ ¡HUBO UN ERROR REAL DE CONEXIÓN! Aquí está:");
-    console.error(err);
-  });

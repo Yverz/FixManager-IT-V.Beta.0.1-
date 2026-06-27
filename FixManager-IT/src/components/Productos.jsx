@@ -1,21 +1,20 @@
 import { useState, useEffect } from "react";
-import "./Productos.css"; // Crearemos este archivo en el siguiente paso
+import "./Productos.css";
 
 export default function Productos() {
   const [productos, setProductos] = useState([]);
   const [cargando, setCargando] = useState(true);
   
-  // Estado para el formulario de nuevo producto
   const [nombre, setNombre] = useState("");
   const [precio, setPrecio] = useState("");
 
   const API_URL = "https://didactic-fiesta-pjq59q456vr73rx7v-4000.app.github.dev/api/productos";
   
-  // 🟢 GET: Obtener productos desde MongoDB al cargar el componente
   const obtenerProductos = async () => {
     try {
       setCargando(true);
       const respuesta = await fetch(API_URL);
+      if (!respuesta.ok) throw new Error("Error al obtener productos");
       const datos = await respuesta.json();
       setProductos(datos);
     } catch (error) {
@@ -29,7 +28,7 @@ export default function Productos() {
     obtenerProductos();
   }, []);
 
-  // 🔵 POST: Enviar un nuevo producto a MongoDB
+  // 🔵 POST: Versión mejorada y robusta
   const guardarProducto = async (e) => {
     e.preventDefault();
     if (!nombre || !precio) return alert("Por favor, llena todos los campos");
@@ -41,19 +40,21 @@ export default function Productos() {
         body: JSON.stringify({ nombre, precio: Number(precio) }),
       });
 
+      const datos = await respuesta.json();
+
       if (respuesta.ok) {
-        // Limpiar formulario y recargar lista
         setNombre("");
         setPrecio("");
-        obtenerProductos(); 
+        obtenerProductos();
+        alert("Producto guardado exitosamente");
       } else {
-        // 🔴 ESTO ES NUEVO: Nos dirá por qué falló
-        const errorDelServidor = await respuesta.text();
-        alert(`Error del servidor al guardar: ${respuesta.status} - ${errorDelServidor}`);
+        // Aquí capturamos el error real enviado por el backend (ej: validación de Mongoose)
+        console.error("Detalle del error:", datos);
+        alert(`Error: ${datos.mensaje}. Detalle: ${datos.error || 'Sin detalles'}`);
       }
     } catch (error) {
-      console.error("Error al guardar producto:", error);
-      alert("Error de red o de conexión. Revisa la consola (F12).");
+      console.error("Error de conexión:", error);
+      alert("Error de conexión con el servidor. Revisa la consola F12.");
     }
   };
 
@@ -65,7 +66,6 @@ export default function Productos() {
       </header>
 
       <div className="productos-grid">
-        {/* Formulario para añadir productos */}
         <section className="formulario-card">
           <h2>Registrar Nuevo Producto</h2>
           <form onSubmit={guardarProducto}>
@@ -91,7 +91,6 @@ export default function Productos() {
           </form>
         </section>
 
-        {/* Lista de productos traídos de MongoDB */}
         <section className="lista-card">
           <h2>Inventario Disponible</h2>
           
