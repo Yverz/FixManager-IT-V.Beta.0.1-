@@ -4,21 +4,24 @@ import "./Productos.css";
 export default function Productos() {
   const [productos, setProductos] = useState([]);
   const [cargando, setCargando] = useState(true);
-  
+
   const [nombre, setNombre] = useState("");
   const [precio, setPrecio] = useState("");
 
-  const API_URL = "https://didactic-fiesta-pjq59q456vr73rx7v-4000.app.github.dev/api/productos";
-  
+  const API_URL =
+    "https://didactic-fiesta-pjq59q456vr73rx7v-4000.app.github.dev/api/productos";
+
   const obtenerProductos = async () => {
     try {
       setCargando(true);
+
       const respuesta = await fetch(API_URL);
-      if (!respuesta.ok) throw new Error("Error al obtener productos");
       const datos = await respuesta.json();
-      setProductos(datos);
+
+      setProductos(Array.isArray(datos) ? datos : []);
     } catch (error) {
       console.error("Error al traer productos:", error);
+      setProductos([]);
     } finally {
       setCargando(false);
     }
@@ -28,33 +31,42 @@ export default function Productos() {
     obtenerProductos();
   }, []);
 
-  // 🔵 POST: Versión mejorada y robusta
+  // 🔵 POST CORREGIDO
   const guardarProducto = async (e) => {
     e.preventDefault();
-    if (!nombre || !precio) return alert("Por favor, llena todos los campos");
+
+    if (!nombre || !precio) {
+      alert("Por favor, llena todos los campos");
+      return;
+    }
 
     try {
       const respuesta = await fetch(API_URL, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ nombre, precio: Number(precio) }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          nombre: nombre.trim(),
+          precio: parseFloat(precio),
+        }),
       });
 
-      const datos = await respuesta.json();
+      const data = await respuesta.json();
 
-      if (respuesta.ok) {
-        setNombre("");
-        setPrecio("");
-        obtenerProductos();
-        alert("Producto guardado exitosamente");
-      } else {
-        // Aquí capturamos el error real enviado por el backend (ej: validación de Mongoose)
-        console.error("Detalle del error:", datos);
-        alert(`Error: ${datos.mensaje}. Detalle: ${datos.error || 'Sin detalles'}`);
+      console.log("RESPUESTA BACKEND:", data);
+
+      if (!respuesta.ok) {
+        throw new Error(data.mensaje || "Error al guardar");
       }
+
+      setNombre("");
+      setPrecio("");
+      obtenerProductos();
+      alert("Producto guardado correctamente");
     } catch (error) {
-      console.error("Error de conexión:", error);
-      alert("Error de conexión con el servidor. Revisa la consola F12.");
+      console.error("ERROR REAL:", error);
+      alert("No se pudo guardar. Revisa consola F12.");
     }
   };
 
@@ -68,57 +80,43 @@ export default function Productos() {
       <div className="productos-grid">
         <section className="formulario-card">
           <h2>Registrar Nuevo Producto</h2>
+
           <form onSubmit={guardarProducto}>
             <div className="input-group">
-              <label>Nombre del Producto / Componente</label>
-              <input 
-                type="text" 
-                value={nombre} 
-                onChange={(e) => setNombre(e.target.value)} 
-                placeholder="Ej. Memoria RAM DDR5 16GB"
+              <label>Nombre</label>
+              <input
+                value={nombre}
+                onChange={(e) => setNombre(e.target.value)}
               />
             </div>
+
             <div className="input-group">
-              <label>Precio (USD)</label>
-              <input 
-                type="number" 
-                value={precio} 
-                onChange={(e) => setPrecio(e.target.value)} 
-                placeholder="Ej. 85"
+              <label>Precio</label>
+              <input
+                type="number"
+                value={precio}
+                onChange={(e) => setPrecio(e.target.value)}
               />
             </div>
-            <button type="submit" className="btn-guardar">Guardar en Base de Datos</button>
+
+            <button type="submit">Guardar</button>
           </form>
         </section>
 
         <section className="lista-card">
-          <h2>Inventario Disponible</h2>
-          
+          <h2>Productos</h2>
+
           {cargando ? (
-            <div className="loader">Cargando productos de MongoDB...</div>
-          ) : productos.length === 0 ? (
-            <p className="sin-datos">No hay productos registrados en el inventario.</p>
+            <p>Cargando...</p>
           ) : (
-            <div className="tabla-contenedor">
-              <table className="tabla-productos">
-                <thead>
-                  <tr>
-                    <th>ID (MongoDB)</th>
-                    <th>Nombre</th>
-                    <th>Precio</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {productos.map((prod) => (
-                    <tr key={prod._id}>
-                      <td className="txt-id">{prod._id}</td>
-                      <td className="txt-nombre">{prod.nombre}</td>
-                      <td className="txt-precio">${prod.precio}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+            <ul>
+              {Array.isArray(productos) &&
+                productos.map((p) => (
+                  <li key={p._id}>
+                    {p.nombre} - ${p.precio}
+                  </li>
+                ))}
+            </ul>
           )}
         </section>
       </div>
