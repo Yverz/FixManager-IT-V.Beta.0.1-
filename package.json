@@ -5,6 +5,7 @@
     "express": "^5.2.1",
     "framer-motion": "^12.38.0",
     "mongodb": "^7.4.0",
+    "mongol": "^0.2.1",
     "mongoose": "^9.7.3",
     "react-router-dom": "^7.14.1"
   }
